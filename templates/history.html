@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set title = "Workout History" %}
+
+{% block content %}
+<h1>Workout History</h1>
+
+{% if workouts|length == 0 %}
+  <p>No workouts saved yet.</p>
+{% else %}
+  <ul>
+  {% for w in workouts %}
+    <li>{{ w.workout_type }} — {{ w.date }} — {{ w.duration }} min</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

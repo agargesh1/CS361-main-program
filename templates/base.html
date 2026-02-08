@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title or "Fitness Tracker" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('entry') }}">Workout Entry</a> |
+    <a href="{{ url_for('history') }}">Workout History</a> |
+    <a href="{{ url_for('progress') }}">Progress Summary</a>
+  </nav>
+  <hr>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

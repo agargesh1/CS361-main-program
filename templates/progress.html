@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set title = "Progress Summary" %}
+
+{% block content %}
+<h1>Progress Summary</h1>
+
+{% if not stats %}
+  <p>Log at least one workout to see progress.</p>
+{% else %}
+  <p>Total workouts completed: {{ stats.total_workouts }}</p>
+  <p>Total workout time (minutes): {{ stats.total_minutes }}</p>
+  <p>Average duration (minutes): {{ stats.avg_minutes }}</p>
+{% endif %}
+
+{% endblock %}

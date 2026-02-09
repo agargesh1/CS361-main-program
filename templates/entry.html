@@ -4,23 +4,25 @@
 {% block content %}
 <h1>Workout Entry</h1>
 
-<p><strong>Benefit:</strong> Log workouts to track your activities over time</p>
+<div class="card">
+    <p><strong>Benefit:</strong> Log workouts to track your activities over time</p>
 
-{% if status %}
-    <div class="status-box">
-        <strong>Status:</strong> {{ status }}
-    </div>
+    {% if status %}
+        <div class="status-box">
+            <strong>Status:</strong> {{ status }}
+        </div>
 
-{% endif %}
+    {% endif %}
 
-<form method="post">
-    <label> Workout type: <input name="workout_type"></label><br><br>
-    <label>Duration (minutes): <input name="duration" type="number" min="1"> </label><br><br>
-    <label>Date: <input name="date" type="date"></label><br><br>
-    <label>Additional notes:</label><br>
-    <textarea name="notes" rows="4" cols="40"></textarea><br><br>
+    <form method="post">
+        <label> Workout type: <input name="workout_type"></label><br><br>
+        <label>Duration (minutes): <input name="duration" type="number" min="1"> </label><br><br>
+        <label>Date: <input name="date" type="date"></label><br><br>
+        <label>Additional notes:</label><br>
+        <textarea name="notes" rows="4" cols="40"></textarea><br><br>
 
-    <button type="submit">Save</button>
-    <a class="cancel-link" href="{{ url_for('entry') }}">cancel</a>
-</form>
+        <button type="submit">Save</button>
+        <a class="cancel-link" href="{{ url_for('entry') }}">cancel</a>
+    </form>
+</div>
 {% endblock %}

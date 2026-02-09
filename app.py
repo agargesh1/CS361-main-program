@@ -4,6 +4,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from flask import abort
 
 app = Flask(__name__)
 
@@ -106,7 +107,29 @@ def entry():
 @app.get("/history")
 def history():
     workouts = load_workouts()
-    return render_template("history.html", workouts=workouts)
+    status = request.args.get("status")
+    return render_template("history.html", workouts=workouts, status=status)
+
+@app.get("/history/delete/<int:idx>")
+def confirm_delete(idx: int):
+    workouts = load_workouts()
+    if idx < 0 or idx >= len(workouts):
+        abort(404)
+
+    workout = workouts[idx]
+    return render_template("confirm_delete.html", idx=idx, workout=workout)
+
+@app.post("/history/delete/<int:idx>")
+def delete_workout(idx: int):
+    workouts = load_workouts()
+    if idx < 0 or idx >= len(workouts):
+        abort(404)
+    
+    workouts.pop(idx)
+    save_workouts(workouts)
+
+    return redirect(url_for("history", status="Workout Deleted."))
+
 
 
 @app.get("/progress")

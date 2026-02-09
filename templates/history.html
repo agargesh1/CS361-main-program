@@ -4,13 +4,40 @@
 {% block content %}
 <h1>Workout History</h1>
 
-{% if workouts|length == 0 %}
-  <p>No workouts saved yet.</p>
-{% else %}
-  <ul>
-  {% for w in workouts %}
-    <li>{{ w.workout_type }} — {{ w.date }} — {{ w.duration }} min</li>
-  {% endfor %}
-  </ul>
+{% if status %}
+  <div class="status-box"><strong>Status:</strong> {{ status }}</div>
 {% endif %}
+
+<div class="card">
+  {% if workouts|length == 0 %}
+    <p>No workouts saved yet.</p>
+  {% else %}
+    <table class="workouts-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Workout</th>
+          <th>Date</th>
+          <th>Duration (min)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for w in workouts %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ w.workout_type }}</td>
+            <td>{{ w.date }}</td>
+            <td>{{ w.duration }}</td>
+            <td>
+              <a href="{{ url_for('confirm_delete', idx=loop.index0) }}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set title = "Confirm Delete" %}
+
+{% block content %}
+<h1>Confirm Delete</h1>
+
+<div class="card">
+  <p><strong>Are you sure you want to delete this workout?</strong></p>
+
+  <p>
+    <strong>{{ workout.workout_type }}</strong><br>
+    Date: {{ workout.date }}<br>
+    Duration: {{ workout.duration }} min
+  </p>
+
+  <form method="post" style="display:inline;">
+    <button type="submit">Yes</button>
+  </form>
+
+  <a class="cancel-link" href="{{ url_for('history') }}">No</a>
+</div>
+{% endblock %}

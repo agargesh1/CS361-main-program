@@ -7,7 +7,9 @@
 <p><strong>Benefit:</strong> Log workouts to track your activities over time</p>
 
 {% if status %}
-    <p>{{ status }}</p>
+    <div class="status-box">
+        <strong>Status:</strong> {{ status }}
+    </div>
 
 {% endif %}
 
@@ -19,6 +21,6 @@
     <textarea name="notes" rows="4" cols="40"></textarea><br><br>
 
     <button type="submit">Save</button>
-    <a href="{{ url_for('entry') }}">cancel</a>
+    <a class="cancel-link" href="{{ url_for('entry') }}">cancel</a>
 </form>
 {% endblock %}

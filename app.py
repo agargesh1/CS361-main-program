@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request
 import json
 from pathlib import Path
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -24,6 +27,37 @@ def save_workouts(workouts):
     with DATA_PATH.open("w", encoding="utf-8") as f:
         json.dump(workouts, f, indent=2)
 
+CHART_PATH = Path("static/progress_chart.png")
+
+def generate_progress_chart(workouts):
+    """
+    Creates a simple bar chart: total min per date
+    Saves to static/progress_chart.png
+    """
+    if len(workouts) == 0:
+        if CHART_PATH.exists():
+            CHART_PATH.unlink()
+        return
+    
+    minutes_by_date = {}
+    for w in workouts:
+        d = w["date"]
+        minutes_by_date[d] = minutes_by_date.get(d, 0) + int(w["duration"])
+
+    dates = sorted(minutes_by_date.keys())
+    minutes = [minutes_by_date[d] for d in dates]
+
+    plt.figure()
+    plt.bar(dates, minutes)
+    plt.title("Minutes per day")
+    plt.xlabel("Date")
+    plt.ylabel("Minutes")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+
+    CHART_PATH.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(CHART_PATH)
+    plt.close()
 
 @app.get("/")
 def index():
@@ -78,21 +112,46 @@ def history():
 @app.get("/progress")
 def progress():
     workouts = load_workouts()
+
+    GOAL_MINUTES = 150
+
     if len(workouts) == 0:
-        return render_template("progress.html", stats=None)
+        return render_template(
+            "progress.html",
+            stats=None,
+            chart_exists=False,
+            status="Log at least one workout to see progress."
+        )
 
     total_workouts = len(workouts)
-    total_minutes = sum(w["duration"] for w in workouts)
+    total_minutes = sum(int(w["duration"]) for w in workouts)
     avg_minutes = round(total_minutes / total_workouts)
+
+    progress_percent = int(min(100, round((total_minutes / GOAL_MINUTES) * 100)))
+
+    generate_progress_chart(workouts)
+    chart_exists = CHART_PATH.exists()
+
+    if progress_percent >= 100:
+        status = "Goal reached! Nice work — you hit your target minutes."
+    else:
+        status = f"You're {progress_percent}% of the way to your goal."
 
     stats = {
         "total_workouts": total_workouts,
         "total_minutes": total_minutes,
-        "avg_minutes": avg_minutes
+        "avg_minutes": avg_minutes,
+        "goal_minutes": GOAL_MINUTES,
+        "progress_percent": progress_percent
     }
-    return render_template("progress.html", stats=stats)
+
+    return render_template(
+        "progress.html",
+        stats=stats,
+        chart_exists=chart_exists,
+        status=status
+    )
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
-    

@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 18px;
+    background: #eef7fb;
+}
+
+h1 {
+    margin-top: 6px;
+    margin-bottom: 12px
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    margin: 12px 0 18px 0;
+}
+
+
+nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+nav a {
+    padding: 8px 12px;
+    border: 1px solid #555;
+    background: #d9d9d9;
+    border-radius: 6px;
+    color: #000;
+    font-weight: 600;
+}
+
+nav a:hover {
+    background: #cfcfcf;
+}
+
+.card {
+    border: 2px solid #3f3f3f;
+    background: #bfefff;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.subhead {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.two-col .card {
+    flex: 1;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 320px;
+    max-width: 100%;
+    padding: 6px;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 380px;
+}
+
+button {
+    padding: 8px 14px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: #2f66ff;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(0.95);
+}
+
+a.cancel-link {
+    margin-left: 10px;
+    color: #0033cc;
+    font-weight: 700;
+}
+
+.status-box {
+    border: 2px solid #2d2d2d;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 12px;
+}
+
+ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+li {
+    margin: 6px 0;
+}
+
+.chart {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border: 1px solid #666;
+    background: #fff;
+}
+
+.progress-outer {
+    width: 100%;
+    max-width: 520px;
+    height: 24px;
+    border: 2px solid #333;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-inner {
+    height: 100%;
+    background: #2f66ff;
+}
+
+.hint {
+    font-size: 14px;
+    color: #333;
+    margin-top: 8px;
+}
+

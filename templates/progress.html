@@ -4,12 +4,45 @@
 {% block content %}
 <h1>Progress Summary</h1>
 
-{% if not stats %}
-  <p>Log at least one workout to see progress.</p>
-{% else %}
-  <p>Total workouts completed: {{ stats.total_workouts }}</p>
-  <p>Total workout time (minutes): {{ stats.total_minutes }}</p>
-  <p>Average duration (minutes): {{ stats.avg_minutes }}</p>
-{% endif %}
+<div class="two-col">
+  <div class="card">
+    {% if not stats %}
+      <div class="status-box">
+        {{ status }}
+      </div>
+    {% else %}
+      <p><strong>Total workouts:</strong> {{ stats.total_workouts }}</p>
+      <p><strong>Total minutes:</strong> {{ stats.total_minutes }}</p>
+      <p><strong>Average minutes:</strong> {{ stats.avg_minutes }}</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2 class="subhead">Graph</h2>
+    {% if chart_exists %}
+      <img class="chart" src="{{ url_for('static', filename='progress_chart.png') }}" alt="Bar chart of minutes per day">
+    {% else %}
+      <p>No chart yet.</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="card" style="margin-top: 15px;">
+  <h2 class="subhead">Progress Visualization Bar</h2>
+
+  {% if stats %}
+    <div class="progress-outer">
+      <div class="progress-inner" style="width: {{ stats.progress_percent }}%;"></div>
+    </div>
+    <p>{{ stats.progress_percent }}% of goal ({{ stats.goal_minutes }} minutes)</p>
+  {% else %}
+    <p>Add workouts to see progress.</p>
+  {% endif %}
+</div>
+
+<div class="card" style="margin-top: 15px;">
+  <h2 class="subhead">Status / Information</h2>
+  <p>{{ status }}</p>
+</div>
 
 {% endblock %}

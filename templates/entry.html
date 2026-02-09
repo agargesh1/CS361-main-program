@@ -14,8 +14,9 @@
 <form method="post">
     <label> Workout type: <input name="workout_type"></label><br><br>
     <label>Duration (minutes): <input name="duration" type="number" min="1"> </label><br><br>
+    <label>Date: <input name="date" type="date"></label><br><br>
     <label>Additional notes:</label><br>
-    <textarea name="notes" row="4" cols="40"></textarea><br><br>
+    <textarea name="notes" rows="4" cols="40"></textarea><br><br>
 
     <button type="submit">Save</button>
     <a href="{{ url_for('entry') }}">cancel</a>

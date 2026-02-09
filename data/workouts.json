@@ -2,31 +2,37 @@
   {
     "workout_type": "Running",
     "duration": 30,
-    "date": "2025-09-23",
-    "notes": "test"
+    "date": "2026-02-01",
+    "notes": "Ran in the rain for endurance practice"
   },
   {
-    "workout_type": "weights",
+    "workout_type": "Deadlift",
+    "duration": 30,
+    "date": "2026-02-02",
+    "notes": ""
+  },
+  {
+    "workout_type": "Push day",
     "duration": 60,
-    "date": "2025-09-24",
-    "notes": "test"
+    "date": "2026-02-03",
+    "notes": ""
   },
   {
-    "workout_type": "deadlift",
+    "workout_type": "Pull Day without Deadlift",
     "duration": 60,
-    "date": "2005-09-27",
-    "notes": "Doig deadlift to see new max"
+    "date": "2026-02-04",
+    "notes": ""
   },
   {
-    "workout_type": "test Workout",
-    "duration": 50,
-    "date": "2026-01-23",
-    "notes": "test"
+    "workout_type": "Leg day",
+    "duration": 45,
+    "date": "2026-02-05",
+    "notes": ""
   },
   {
-    "workout_type": "test",
-    "duration": 40,
-    "date": "2026-01-23",
-    "notes": "test"
+    "workout_type": "abs day",
+    "duration": 30,
+    "date": "2026-02-07",
+    "notes": ""
   }
 ]

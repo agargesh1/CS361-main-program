@@ -5,7 +5,7 @@
   <title>{{ title or "Fitness Tracker" }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="{{ page_class }}">
   <nav>
     <a href="{{ url_for('entry') }}">Workout Entry</a>
     <a href="{{ url_for('history') }}">Workout History</a>

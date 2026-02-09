@@ -117,14 +117,14 @@ def entry():
 
         return render_template("entry.html", status="Successfully saved!")
 
-    return render_template("entry.html", status=None)
+    return render_template("entry.html", status=None, page_class="page-entry")
 
 
 @app.get("/history")
 def history():
     workouts = load_workouts()
     status = request.args.get("status")
-    return render_template("history.html", workouts=workouts, status=status)
+    return render_template("history.html", workouts=workouts, status=status, page_class="page-history")
 
 @app.get("/history/delete/<int:idx>")
 def confirm_delete(idx: int):
@@ -205,7 +205,8 @@ def progress():
         "progress.html",
         stats=stats,
         chart_exists=chart_exists,
-        status=status
+        status=status,
+        page_class="page-progress"
     )
 
 

@@ -14,7 +14,10 @@
 
     {% endif %}
 
-    <form method="post">
+    <div id="live-status" class="status-box status-saved">
+        No Unsaved Changes ✔
+    </div>
+    <form method="post" data-dirty-tracker="true">
         <label> Workout type: <input name="workout_type"></label><br><br>
         <label>Duration (minutes): <input name="duration" type="number" min="1"> </label><br><br>
         <label>Date: <input name="date" type="date"></label><br><br>
@@ -23,6 +26,12 @@
 
         <button type="submit">Save</button>
         <a class="cancel-link" href="{{ url_for('entry') }}">cancel</a>
+    </form>
+
+    <h2>Goal</h2>
+    <form method="post" action="{{ url_for('set_goal') }}">
+        <label>Goal minutes: <input name="goal_minutes" type="number" min="1"></label>
+        <button type="submit">Set Goal</button>
     </form>
 </div>
 {% endblock %}

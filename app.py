@@ -9,6 +9,22 @@ from flask import abort
 app = Flask(__name__)
 
 DATA_PATH = Path("data/workouts.json")
+GOAL_PATH = Path("data/goal.json")
+
+def load_goal_minutes(default=150):
+    if not GOAL_PATH.exists():
+        return default
+    try: 
+        with GOAL_PATH.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+            return int(data.get("goal_minutes", default))
+    except (json.JSONDecodedError, ValueError, TypeError):
+        return default
+
+def save_goal_minutes(goal_minutes: int):
+    GOAL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with GOAL_PATH.open("w", encoding="utf-8") as f:
+        json.dump({"goal_minutes": goal_minutes}, f, indent=2)
 
 
 def load_workouts():
@@ -130,13 +146,26 @@ def delete_workout(idx: int):
 
     return redirect(url_for("history", status="Workout Deleted."))
 
+@app.post("/goal")
+def set_goal():
+    goal_raw = request.form.get("goal_minutes", "").strip()
+    try:
+        goal = int(goal_raw)
+        if goal <= 0:
+            raise ValueError
+    except ValueError:
+        return redirect(url_for("entry", status="Goal must be a positive whole number."))
+
+    save_goal_minutes(goal)
+    return redirect(url_for("progress"))
+
 
 
 @app.get("/progress")
 def progress():
     workouts = load_workouts()
 
-    GOAL_MINUTES = 150
+    GOAL_MINUTES = load_goal_minutes(default=150)
 
     if len(workouts) == 0:
         return render_template(
@@ -156,9 +185,13 @@ def progress():
     chart_exists = CHART_PATH.exists()
 
     if progress_percent >= 100:
-        status = "Goal reached! Nice work — you hit your target minutes."
-    else:
-        status = f"You're {progress_percent}% of the way to your goal."
+        status = "Goal Reached 🥳✨! Fantastic work 👏👏👏. Set a new goal whenever you're ready."
+    elif progress_percent >= 75: 
+        status = f" Almoss there, keep goin 🤏📈! You're at {progress_percent}% of your goal."
+    elif progress_percent >= 25:
+        status = f" Great Progress 💪! {progress_percent}% toward your goal."
+    else: 
+        status = f"Great Start! {progress_percent}% towards your goal." 
 
     stats = {
         "total_workouts": total_workouts,
@@ -174,6 +207,8 @@ def progress():
         chart_exists=chart_exists,
         status=status
     )
+
+
 
 
 if __name__ == "__main__":

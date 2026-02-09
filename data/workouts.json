@@ -16,5 +16,17 @@
     "duration": 60,
     "date": "2005-09-27",
     "notes": "Doig deadlift to see new max"
+  },
+  {
+    "workout_type": "test Workout",
+    "duration": 50,
+    "date": "2026-01-23",
+    "notes": "test"
+  },
+  {
+    "workout_type": "test",
+    "duration": 40,
+    "date": "2026-01-23",
+    "notes": "test"
   }
 ]

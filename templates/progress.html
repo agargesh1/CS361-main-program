@@ -40,6 +40,21 @@
   {% endif %}
 </div>
 
+{% if stats and stats.progress_percent >= 100 %}
+  <div class="card" style="margin-top: 15px;">
+    <h2 class="subhead">Start a New Goal</h2>
+
+    <form method="post" action="{{ url_for('set_goal') }}">
+      <label>
+        New goal minutes:
+        <input type="number" name="goal_minutes" min="1" required>
+      </label>
+      <br><br>
+      <button type="submit">Set New Goal</button>
+    </form>
+  </div>
+{% endif %}
+
 <div class="card" style="margin-top: 15px;">
   <h2 class="subhead">Status / Information</h2>
   <p>{{ status }}</p>
